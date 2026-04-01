@@ -24,12 +24,13 @@ public class ScreenGame implements Screen {
         }
     }
 
+    boolean isGameOver;
 
 
 
     @Override
     public void show() {
-
+        isGameOver = false;
     }
 
     @Override
@@ -40,6 +41,10 @@ public class ScreenGame implements Screen {
         }
 
         bird.fly();
+        if (!bird.isInField()) {
+            System.out.println("not in field");
+            isGameOver = true;
+        }
 
         ScreenUtils.clear(1, 0, 0, 1);
         myGdxGame.camera.update();
@@ -51,7 +56,13 @@ public class ScreenGame implements Screen {
 
         myGdxGame.batch.end();
 
-        for (Tube tube : tubes) tube.move();
+        for (Tube tube : tubes) {
+            tube.move();
+            if (tube.isHit(bird)) {
+                System.out.println("hit");
+                isGameOver = true;
+            }
+        }
     }
 
     @Override
