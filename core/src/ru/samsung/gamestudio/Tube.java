@@ -21,6 +21,7 @@ public class Tube {
     final int height = 700;
     int gapHeight = 400;
     int padding = 100;
+    boolean isPointReceived;
 
     public Tube(int tubeCount, int tubeIdx) {
         random = new Random();
@@ -31,6 +32,7 @@ public class Tube {
         gapY = gapHeight / 2 + padding + random.nextInt(SCR_HEIGHT - 2 * (padding + gapHeight / 2));
         distanceBetweenTubes = (SCR_WIDTH + width) / (tubeCount - 1);
         x = distanceBetweenTubes * tubeIdx + SCR_WIDTH;
+        isPointReceived = false;
     }
 
 
@@ -42,6 +44,14 @@ public class Tube {
         return false;
     }
 
+    public boolean needAddPoint(Bird bird) {
+        return bird.x > x + width && !isPointReceived;
+    }
+
+    public void setPointReceived() {
+        isPointReceived = true;
+    }
+
     void draw(Batch batch) {
         batch.draw(textureUpperTube, x, gapY + gapHeight / 2, width, height);
         batch.draw(textureDownTube, x, gapY - gapHeight / 2 - height, width, height);
@@ -50,6 +60,7 @@ public class Tube {
     void move() {
         x -= speed;
         if (x < -width) {
+            isPointReceived = false;
             x = SCR_WIDTH + distanceBetweenTubes;
             gapY = gapHeight / 2 + padding + random.nextInt(SCR_HEIGHT - 2 * (padding + gapHeight / 2));
         }
