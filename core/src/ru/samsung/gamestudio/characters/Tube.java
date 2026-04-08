@@ -1,4 +1,4 @@
-package ru.samsung.gamestudio;
+package ru.samsung.gamestudio.characters;
 
 
 
@@ -16,12 +16,13 @@ public class Tube {
     Texture textureDownTube;
 
     int x, gapY, distanceBetweenTubes;
+    boolean isPointReceived;
+
     int speed = 10;
     final int width = 200;
     final int height = 700;
     int gapHeight = 400;
     int padding = 100;
-    boolean isPointReceived;
 
     public Tube(int tubeCount, int tubeIdx) {
         random = new Random();
@@ -35,29 +36,12 @@ public class Tube {
         isPointReceived = false;
     }
 
-
-    public boolean isHit(Bird bird) {
-        if (bird.y <= gapY - gapHeight / 2 && bird.x + bird.width >= x && bird.x <= x)
-            return true;
-        if (bird.y + bird.height >= gapY + gapHeight / 2 && bird.x + bird.width >= x && bird.x <= x)
-            return true;
-        return false;
-    }
-
-    public boolean needAddPoint(Bird bird) {
-        return bird.x > x + width && !isPointReceived;
-    }
-
-    public void setPointReceived() {
-        isPointReceived = true;
-    }
-
-    void draw(Batch batch) {
+    public void draw(Batch batch) {
         batch.draw(textureUpperTube, x, gapY + gapHeight / 2, width, height);
         batch.draw(textureDownTube, x, gapY - gapHeight / 2 - height, width, height);
     }
 
-    void move() {
+    public void move() {
         x -= speed;
         if (x < -width) {
             isPointReceived = false;
@@ -66,9 +50,24 @@ public class Tube {
         }
     }
 
+    public boolean isHit(Bird bird) {
+        if ((bird.y <= (gapY - gapHeight / 2)) && (bird.x + bird.width >= x) && (bird.x <= x + width))
+            return true;
+        if (((bird.y + bird.height) >= (gapY + gapHeight / 2)) && (bird.x + bird.width >= x) && (bird.x <= x + width))
+            return true;
+        return false;
+    }
+
+    public boolean needAddPoint(Bird bird) {
+        return (!isPointReceived) && (bird.x > (x + width));
+    }
+
+    public void setPointReceived() {
+        isPointReceived = true;
+    }
+
     void dispose() {
         textureDownTube.dispose();
         textureUpperTube.dispose();
     }
-
 }

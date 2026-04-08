@@ -1,4 +1,4 @@
-package ru.samsung.gamestudio;
+package ru.samsung.gamestudio.screens;
 
 import static ru.samsung.gamestudio.MyGdxGame.SCR_HEIGHT;
 import static ru.samsung.gamestudio.MyGdxGame.SCR_WIDTH;
@@ -7,37 +7,39 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+import ru.samsung.gamestudio.MyGdxGame;
+import ru.samsung.gamestudio.characters.Bird;
+import ru.samsung.gamestudio.characters.Tube;
+import ru.samsung.gamestudio.components.MovingBackground;
+import ru.samsung.gamestudio.components.PointCounter;
+
 
 public class ScreenGame implements Screen {
 
     MyGdxGame myGdxGame;
-
     Bird bird;
-
     PointCounter pointCounter;
-
     MovingBackground movingBackground;
 
     int tubeCount = 3;
-    int gamePoints = 0;
+    int gamePoints;
     final int pointCounterMarginTop = 60;
     final int pointCounterMarginRight = 400;
     Tube[] tubes;
+    boolean isGameOver;
 
-    ScreenGame(MyGdxGame myGdxGame) {
+    public ScreenGame(MyGdxGame myGdxGame) {
         this.myGdxGame = myGdxGame;
 
         bird = new Bird(0, 0, 10, 250, 200);
         tubes = new Tube[tubeCount];
         pointCounter = new PointCounter(SCR_WIDTH - pointCounterMarginRight, SCR_HEIGHT - pointCounterMarginTop);
         movingBackground = new MovingBackground();
+
         for (int i = 0; i < tubeCount; i++) {
             tubes[i] = new Tube(tubeCount, i);
         }
     }
-
-    boolean isGameOver;
-
 
 
     @Override
@@ -55,6 +57,7 @@ public class ScreenGame implements Screen {
 
         movingBackground.move();
         bird.fly();
+
         if (!bird.isInField()) {
             System.out.println("not in field");
             isGameOver = true;
@@ -108,13 +111,5 @@ public class ScreenGame implements Screen {
     @Override
     public void dispose() {
         bird.dispose();
-    }
-
-
-    void initTubes() {
-        tubes = new Tube[tubeCount];
-        for (int i = 0; i < tubeCount; i++) {
-            tubes[i] = new Tube(tubeCount, i);
-        }
     }
 }

@@ -1,4 +1,4 @@
-package ru.samsung.gamestudio;
+package ru.samsung.gamestudio.characters;
 
 import static ru.samsung.gamestudio.MyGdxGame.SCR_HEIGHT;
 
@@ -12,7 +12,7 @@ public class Bird {
 
     int speed;
     int jumpHeight;
-    final int maxHeightOfJump = 200;
+    final int maxHeightOfJump = 100;
     boolean jump;
 
     int frameCounter;
@@ -40,12 +40,12 @@ public class Bird {
         return true;
     }
 
-    void onClick() {
+    public void onClick() {
         jump = true;
         jumpHeight = maxHeightOfJump + y;
     }
 
-    void fly() {
+    public void fly() {
         if (y >= jumpHeight) {
             jump = false;
         }
@@ -57,13 +57,13 @@ public class Bird {
         }
     }
 
-    void draw(Batch batch) {
+    public void draw(Batch batch) {
         int frameMultiplier = 10;
         batch.draw(framesArray[frameCounter / frameMultiplier], x, y, width, height);
         if (frameCounter++ == framesArray.length * frameMultiplier - 1) frameCounter = 0;
     }
 
-    void dispose() {
+    public void dispose() {
         for (Texture texture : framesArray) {
             texture.dispose();
         }
