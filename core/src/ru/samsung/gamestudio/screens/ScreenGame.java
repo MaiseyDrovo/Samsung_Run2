@@ -56,6 +56,7 @@ public class ScreenGame implements Screen {
         }
 
         movingBackground.move();
+        bird.update();
         bird.fly();
 
         if (!bird.isInField()) {
