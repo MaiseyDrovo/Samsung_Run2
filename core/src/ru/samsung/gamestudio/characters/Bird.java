@@ -12,6 +12,8 @@ public class Bird {
 
     int speed;
     int jumpHeight;
+    int g = 1;
+    int ySpeed;
     final int maxHeightOfJump = 100;
     boolean jump;
 
@@ -45,15 +47,20 @@ public class Bird {
         jumpHeight = maxHeightOfJump + y;
     }
 
+    public void update() {
+        ySpeed += g;
+    }
+
     public void fly() {
         if (y >= jumpHeight) {
             jump = false;
         }
 
         if (jump) {
-            y += speed;
+            y += 10;
+            ySpeed = 0;
         } else {
-            y -= speed;
+            y -= ySpeed;
         }
     }
 
