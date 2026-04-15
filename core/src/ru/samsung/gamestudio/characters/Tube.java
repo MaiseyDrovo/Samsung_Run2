@@ -24,16 +24,24 @@ public class Tube {
     int gapHeight = 400;
     int padding = 100;
 
+    double time;
+    int amplitude;
+    boolean isMoveUpDown = false;
+
     public Tube(int tubeCount, int tubeIdx) {
         random = new Random();
         textureUpperTube = new Texture("tubes/tube_flipped.png");
         textureDownTube = new Texture("tubes/tube.png");
-
+        if (tubeIdx % 2 != 0 ){
+            isMoveUpDown = true;
+        }
 
         gapY = gapHeight / 2 + padding + random.nextInt(SCR_HEIGHT - 2 * (padding + gapHeight / 2));
         distanceBetweenTubes = (SCR_WIDTH + width) / (tubeCount - 1);
         x = distanceBetweenTubes * tubeIdx + SCR_WIDTH;
         isPointReceived = false;
+        time = 0.001;
+        amplitude = 100;
     }
 
     public void draw(Batch batch) {
@@ -47,6 +55,9 @@ public class Tube {
             isPointReceived = false;
             x = SCR_WIDTH + distanceBetweenTubes;
             gapY = gapHeight / 2 + padding + random.nextInt(SCR_HEIGHT - 2 * (padding + gapHeight / 2));
+        }
+        if (isMoveUpDown) {
+            gapY = (int) (gapHeight / 2 + padding + random.nextInt(SCR_HEIGHT - 2 * (padding + gapHeight / 2)) + amplitude * Math.sin(time));
         }
     }
 
