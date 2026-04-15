@@ -37,9 +37,7 @@ public class ScreenGame implements Screen {
         pointCounter = new PointCounter(SCR_WIDTH - pointCounterMarginRight, SCR_HEIGHT - pointCounterMarginTop);
         movingBackground = new MovingBackground("background/game_bg.png");
 
-        for (int i = 0; i < tubeCount; i++) {
-            tubes[i] = new Tube(tubeCount, i);
-        }
+        initTubes();
     }
 
 
@@ -47,6 +45,10 @@ public class ScreenGame implements Screen {
     public void show() {
         gamePoints = 0;
         isGameOver = false;
+        bird.setY(SCR_HEIGHT / 2);
+        bird.setySpeed(0);
+        initTubes();
+
     }
 
     @Override
@@ -118,5 +120,12 @@ public class ScreenGame implements Screen {
     @Override
     public void dispose() {
         bird.dispose();
+    }
+
+    void initTubes() {
+        tubes = new Tube[tubeCount];
+        for (int i = 0; i < tubeCount; i++) {
+            tubes[i] = new Tube(tubeCount, i);
+        }
     }
 }

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import ru.samsung.gamestudio.screens.ScreenGame;
+import ru.samsung.gamestudio.screens.ScreenMenu;
 import ru.samsung.gamestudio.screens.ScreenRestart;
 
 public class MyGdxGame extends Game {
@@ -14,6 +15,7 @@ public class MyGdxGame extends Game {
 
     public static final  int SCR_WIDTH = 1280, SCR_HEIGHT = 720;
 
+    public ScreenMenu screenMenu;
     public ScreenGame screenGame;
     public ScreenRestart screenRestart;
 
@@ -23,9 +25,10 @@ public class MyGdxGame extends Game {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, SCR_WIDTH, SCR_HEIGHT);
 
+        screenMenu = new ScreenMenu(this);
         screenGame = new ScreenGame(this);
         screenRestart = new ScreenRestart(this);
-        setScreen(screenGame);
+        setScreen(screenMenu);
     }
 
 
