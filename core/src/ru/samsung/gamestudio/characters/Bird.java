@@ -12,8 +12,8 @@ public class Bird {
 
     int speed;
     int jumpHeight;
-    int g = 1;
-    int ySpeed;
+    float g = 0.5f;
+    float ySpeed;
     final int maxHeightOfJump = 100;
     boolean jump;
 

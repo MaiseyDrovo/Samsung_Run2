@@ -40,8 +40,8 @@ public class Tube {
         distanceBetweenTubes = (SCR_WIDTH + width) / (tubeCount - 1);
         x = distanceBetweenTubes * tubeIdx + SCR_WIDTH;
         isPointReceived = false;
-        time = 0.001;
         amplitude = 100;
+        time = 0;
     }
 
     public void draw(Batch batch) {
@@ -57,7 +57,9 @@ public class Tube {
             gapY = gapHeight / 2 + padding + random.nextInt(SCR_HEIGHT - 2 * (padding + gapHeight / 2));
         }
         if (isMoveUpDown) {
-            gapY = (int) (gapHeight / 2 + padding + random.nextInt(SCR_HEIGHT - 2 * (padding + gapHeight / 2)) + amplitude * Math.sin(time));
+            time += 0.05;
+            gapHeight = 500;
+            gapY = (int) (SCR_HEIGHT / 2 + amplitude * Math.sin(time));
         }
     }
 
